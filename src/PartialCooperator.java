@@ -1,3 +1,4 @@
+package src;
 
 public class PartialCooperator extends Organism {
   
@@ -10,6 +11,7 @@ public class PartialCooperator extends Organism {
   
   @Override
   public Organism reproduce() {
+    this.energy = 0;
     return new PartialCooperator();
   }
 

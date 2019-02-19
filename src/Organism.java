@@ -1,5 +1,5 @@
-
-public abstract class Organism {
+package src;
+public abstract class Organism implements Comparable<Organism>{
 
   // Fields
   double coopProb;
@@ -35,5 +35,10 @@ public abstract class Organism {
   public abstract double getCooperationProbability();
 
   public abstract boolean cooperates();
+  
+  public int compareTo(Organism other)
+  {
+    return this.getEnergy()-other.getEnergy();
+  }
 
 }

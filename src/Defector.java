@@ -1,3 +1,4 @@
+package src;
 
 public class Defector extends Organism {
   public Defector() {
@@ -9,6 +10,7 @@ public class Defector extends Organism {
   
   @Override
   public Defector reproduce() {
+    this.energy = 0;
     return new Defector();
   }
   

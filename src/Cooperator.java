@@ -1,3 +1,4 @@
+package src;
 
 public class Cooperator extends Organism {
   
@@ -11,6 +12,7 @@ public class Cooperator extends Organism {
   @Override
   public Cooperator reproduce() {
     Cooperator offSpring = new Cooperator();
+    this.energy = 0;
     return offSpring;
   }
   

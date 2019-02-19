@@ -1,7 +1,12 @@
+package src;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class Population {
-
+  static Random r = new Random();
+  // Fields
   Pair<String, Integer>[] counts;
   ArrayList<Organism> orgList;
 
@@ -34,36 +39,95 @@ public class Population {
     }
     return list;
   }
-  
+
   public void update() {
     for (int i = 0; i < this.orgList.size(); i++) {
       this.orgList.get(i).update();
-      if(this.orgList.get(i).cooperates()) {
-        //give energy to 8 others.
+      if (this.orgList.get(i).cooperates()) {
+        this.orgList.get(i).decrementEnergy();
+        int[] toBeIncremented = randomNoRepeats(8, this.orgList.size(), i);
+        for (int j = 0; j < 8; j++) {
+          this.orgList.get(toBeIncremented[j]).incrementEnergy();
+        }
       }
     }
-    for(int i = 0; i < this.orgList.size(); i++) {
-      if(this.orgList.get(i).getEnergy() >= 10) {
-        //reproduce
-        //reduce the energy
-        //update countss
-      }
+    Collections.sort(this.orgList);
+    int top = this.orgList.size() - 1;
+    int bottom = 0;
+    while (this.orgList.get(top).getEnergy() >= 10) {
+      this.orgList.set(bottom, this.orgList.get(top).reproduce());
+      top--;
+      bottom++;
     }
-    
-    
+
   }
-  
+
+
   public double calculateCooperateMean() {
     double mean = 0;
-    
+
     for (int i = 0; i < this.orgList.size(); i++) {
       mean += this.orgList.get(i).getCooperationProbability();
     }
-    
-    return mean/this.orgList.size();
+
+    return mean / this.orgList.size();
   }
-  
+
   public Pair<String, Integer>[] getPopulationCounts() {
-    return this.counts;
+    int cooperators = 0;
+    int defectors = 0;
+    int partials = 0;
+    Organism current;
+    for (int i = 0; i < this.orgList.size(); i++) {
+      current = this.orgList.get(i);
+      if (current instanceof Cooperator) {
+        cooperators++;
+      } else if (current instanceof Defector) {
+        defectors++;
+      } else if (current instanceof PartialCooperator) {
+        partials++;
+      }
+
+    }
+    return (Pair<String, Integer>[]) (new Pair[] {
+        new Pair<String, Integer>("Cooperator", cooperators),
+        new Pair<String, Integer>("Defector", defectors),
+        new Pair<String, Integer>("PartialCooperator", partials)});
   }
+
+  public String toString()
+  {
+    Pair<String,Integer>[] vals = this.getPopulationCounts();
+    return "Cooperators \t= "+vals[0].getRight()+"\nDefectors \t= " + vals[1].getRight() + "\nPartial \t= " + vals[2].getRight();
+  }
+
+  // Needs to be improved
+  private int[] randomNoRepeats(int number, int upperBound, int exclude) {
+    int[] vals = new int[number];
+    int count = 0;
+    int temp;
+    boolean found = false;
+    while (count < number) {
+      temp = r.nextInt(upperBound);
+      if (temp == exclude) {
+        found = true;
+      }
+      found = false;
+      for (int i = 0; i < count; i++) {
+        if (vals[i] == temp) {
+
+          found = true;
+          break;
+        }
+      }
+      if (found) {
+        continue;
+      } else {
+        vals[count] = temp;
+        count++;
+      }
+    }
+    return vals;
+  }
+
 }
