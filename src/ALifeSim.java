@@ -11,12 +11,13 @@ public class ALifeSim {
         new Pair<String, Integer>("PartialCooperator", Integer.parseInt(args[3]));
     Pair<String, Integer>[] pairs =
         (Pair<String, Integer>[]) (new Pair[] {coops, defect, partials});
-    Pair<String, Integer>[] toCreate = pairs;
-    Population p = new Population(toCreate);
+    
+    Population p = new Population(pairs);
+    
     for (int i = 0; i < iterations; i++) {
       p.update();
     }
-    java.io.PrintWriter pen = new java.io.PrintWriter(System.out);
+    java.io.PrintWriter pen = new java.io.PrintWriter(System.out,true);
     pen.println("After "+iterations+" ticks:");
     pen.println(p.toString());
     pen.println();
