@@ -54,7 +54,6 @@ public class Population {
         for (int j = 0; j < 8; j++) {
           // increase the energy of the selected Organism
           this.orgList.get(toBeIncremented[j]).incrementEnergy();
-          System.out.println("Incremented " + toBeIncremented[j]);
         }
       }
     }

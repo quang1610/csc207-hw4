@@ -1,6 +1,7 @@
 package src;
 public abstract class Organism implements Comparable<Organism>{
 
+  static double mutationProb = .05;
   // Fields
   double coopProb;
   int energy;

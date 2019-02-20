@@ -12,9 +12,15 @@ public class PartialCooperator extends Organism {
   @Override
   public Organism reproduce() {
     this.energy = 0;
+    if (Population.r.nextDouble() < Organism.mutationProb) {
+      if (Population.r.nextDouble() < .5) {
+        return new Cooperator();
+      } else {
+        return new Defector();
+      }
+    }
     return new PartialCooperator();
   }
-
   @Override
   public double getCooperationProbability() {
     return this.coopProb;
@@ -22,7 +28,7 @@ public class PartialCooperator extends Organism {
 
   @Override
   public boolean cooperates() {
-    return Math.random() < this.coopProb;
+    return Population.r.nextDouble() < this.coopProb;
   }
 
 }

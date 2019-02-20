@@ -10,11 +10,17 @@ public class Cooperator extends Organism {
   }
   
   @Override
-  public Cooperator reproduce() {
-    Cooperator offSpring = new Cooperator();
-    this.energy = 0;
-    return offSpring;
-  }
+  public Organism reproduce() {
+      this.energy = 0;
+      if (Population.r.nextDouble() < Organism.mutationProb) {
+        if (Population.r.nextDouble() < .5) {
+          return new Defector();
+        } else {
+          return new PartialCooperator();
+        }
+      }
+      return new Cooperator();
+    }
   
   @Override
   public double getCooperationProbability() {
