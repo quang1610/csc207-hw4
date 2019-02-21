@@ -11,7 +11,8 @@ https://www.geeksforgeeks.org/collections-sort-java-examples/
 https://docs.oracle.com/javase/8/docs/api/java/util/Random.html
 
 
-
+Note: we choose to update and let the organisms cooperate with each other, then they would reproduce. 
+The one with higher energy will reproduce first.
 Prediction: 
 
 Total iterations: 100
