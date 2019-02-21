@@ -1,6 +1,9 @@
 package src;
+//The super class of all kind of organisms
 public abstract class Organism implements Comparable<Organism>{
-
+  
+  //Static Fields
+  //mutation probability
   static double mutationProb = .05;
   // Fields
   double coopProb;
@@ -10,7 +13,6 @@ public abstract class Organism implements Comparable<Organism>{
   // Constructor
   public Organism() {}
 
-  // Methods
   public void update() {
     this.incrementEnergy();
   }
