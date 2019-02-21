@@ -1,5 +1,3 @@
-package src;
-
 public class Pair<T,U> {
   T left;
   U right;

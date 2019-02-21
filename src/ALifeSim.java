@@ -1,14 +1,16 @@
-package src;
-
+// Simulate life
 public class ALifeSim {
 
-  public static void main(String[] args) {
+  // run the community 10 times, each time with args[0] numbers of update. Reset the community after
+  // each times.
+  public static void main(String[] args) throws Exception {
     int iterations = Integer.parseInt(args[0]);
     double probSum = 0;
     java.io.PrintWriter pen = new java.io.PrintWriter(System.out, true);
     pen.println("Total iterations: " + args[0]);
     pen.println("Initial Values:");
-    pen.println("Cooperators: " + args[1] + "\tDefectors: "+args[2]+"\tPartial Cooperators: "+args[3]);
+    pen.println("Cooperators: " + args[1] + "\tDefectors: " + args[2] + "\tPartial Cooperators: "
+        + args[3]);
     pen.println("--------------------------------");
     for (int tests = 0; tests < 10; tests++) {
       Pair<String, Integer> coops =
@@ -25,15 +27,14 @@ public class ALifeSim {
       for (int i = 0; i < iterations; i++) {
         p.update();
       }
-
-      /*
+      // print report each time
       pen.println("After " + iterations + " ticks:");
       pen.println(p.toString());
-      pen.println();*/
+      pen.println();
       pen.println("Mean Cooperation Probability = " + p.calculateCooperateMean());
-      probSum+=p.calculateCooperateMean();
+      probSum += p.calculateCooperateMean();
     }
     pen.println("--------------------------------");
-    pen.println("Average cooperation probability over 10 runs: "+probSum/10.0);
+    pen.println("Average cooperation probability over 10 runs: " + probSum / 10.0);
   }
 }
